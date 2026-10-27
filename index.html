@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Myth Hero Reviewer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f2;--bg2:#d3e3e1;--card:#fbfdfc;--ink:#0d2b45;--mute:#4f6b7d;--acc:#a8531e;--acc2:#d98a3d;--line:#bfd0d0;--ok:#1f7a4d;--bad:#b3342b;--gt:#fff;--glow:rgba(168,83,30,.18);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06182a;--bg2:#0f3042;--card:#0c2438;--ink:#e4efee;--mute:#8fb0bd;--acc:#e0924a;--acc2:#f3c27f;--line:#1d4258;--ok:#5ad19a;--bad:#ff7a6b;--gt:#1a0f05;--glow:rgba(224,146,74,.2)}}
+:root[data-theme="dark"]{--bg:#06182a;--bg2:#0f3042;--card:#0c2438;--ink:#e4efee;--mute:#8fb0bd;--acc:#e0924a;--acc2:#f3c27f;--line:#1d4258;--ok:#5ad19a;--bad:#ff7a6b;--gt:#1a0f05;--glow:rgba(224,146,74,.2)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;min-height:100dvh;font:16px/1.55 Figtree,system-ui,sans-serif;color:var(--ink);background:var(--bg) radial-gradient(900px 520px at 50% -8%,var(--bg2),transparent 70%) fixed}
+main{position:relative;max-width:760px;margin:0 auto;padding:30px 18px 70px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.th{position:fixed;right:14px;top:calc(12px + env(safe-area-inset-top,0px));width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);z-index:5}
+.key{height:12px;margin:18px 0;background:var(--acc);opacity:.75;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='12' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 11h2V1h12v8H6V5h4'/%3E%3C/svg%3E") repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='12' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 11h2V1h12v8H6V5h4'/%3E%3C/svg%3E") repeat-x}
+h1{font:800 clamp(2.3rem,9vw,4rem)/1.05 Cinzel,Georgia,serif;margin:30px 0 4px;letter-spacing:.01em}
+h1 span{display:block;background:linear-gradient(100deg,var(--acc),var(--acc2),var(--acc));background-size:220%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 7s linear infinite}
+h2{font:700 1.6rem Cinzel,Georgia,serif;margin:.4em 0}h3{font:700 1.05rem Cinzel,Georgia,serif;margin:28px 0 10px}
+.sub{color:var(--mute);margin:.3em 0 0;max-width:52ch}
+.rise{opacity:0;transform:translateY(18px);animation:up .8s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes up{to{opacity:1;transform:none}}@keyframes sh{to{background-position:220%}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:transparent;transition:.2s}
+.chip.on{background:var(--acc);border-color:var(--acc);color:var(--gt);font-weight:700}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.mode{text-align:left;padding:16px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);transition:.25s}
+.mode b{display:block;font:700 1.05rem Cinzel,Georgia,serif}.mode span{color:var(--mute);font-size:.92rem}
+.mode i{font-style:normal;font-size:1.5rem;color:var(--acc)}
+.mode.on{border-color:var(--acc);box-shadow:0 0 0 4px var(--glow);transform:translateY(-3px)}
+.go{margin-top:28px;padding:14px 30px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--acc),var(--acc2));color:var(--gt);font-weight:700;font-size:1.05rem;box-shadow:0 12px 28px -10px var(--acc);transition:transform .2s}
+.go:hover{transform:translateY(-2px) scale(1.03)}.go.sm{margin:0;padding:12px 22px;font-size:1rem}
+.ghost{background:none;border:0;color:var(--mute);padding:8px 10px;border-radius:8px}.ghost:hover{color:var(--ink)}
+.foot{color:var(--mute);font-size:.9rem;margin-top:14px}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.top{display:flex;justify-content:space-between;align-items:center;margin:10px 0 14px;color:var(--mute)}.top b{color:var(--acc)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 24px 50px -30px rgba(0,0,0,.45)}
+.in{animation:in .45s cubic-bezier(.2,.8,.2,1) both}@keyframes in{from{opacity:0;transform:translateX(24px)}}
+.tag{color:var(--acc);font-weight:700;font-size:.9rem}
+.q{font-size:1.25rem;line-height:1.5;margin:.5em 0 1.1em}.q.sm{font-size:1rem;color:var(--mute)}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row2{display:flex;gap:6px;margin-top:8px}
+input{flex:1;min-width:0;padding:14px;border-radius:12px;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;transition:.2s}
+input:focus{border-color:var(--acc);box-shadow:0 0 0 4px var(--glow);outline:0}
+.bad{animation:sk .4s;border-color:var(--bad)!important}@keyframes sk{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.ht{color:var(--acc);font:700 1.15rem Cinzel,serif;letter-spacing:.12em;min-height:1.6em}
+.fb{padding:12px 14px;border-radius:12px;margin-top:12px;border-left:4px solid}
+.fb.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}.fb.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,transparent)}
+.mg{display:grid;grid-template-columns:1fr 1.5fr;gap:10px}.col{display:flex;flex-direction:column;gap:8px}
+.mb{width:100%;text-align:left;padding:11px 12px;border-radius:12px;border:2px solid var(--line);background:transparent;transition:.2s;font-size:.95rem}
+.mb{position:relative}.mb.d{font-size:.84rem;line-height:1.4}.mb.m{padding-right:38px}.mb.m::after{content:"\2713";position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ok);font-weight:800;font-size:1.15rem}.mtop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.mb:hover{border-color:var(--acc2)}
+.mb.sel{border-color:var(--acc);background:var(--glow);transform:scale(1.03)}
+.mb.m{pointer-events:none;border-color:hsl(var(--h) 60% 50%);background:hsl(var(--h) 60% 50%/.2)}
+.res{text-align:center}.ring{position:relative;width:170px;margin:12px auto}.ring svg{transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.rb{stroke:var(--line)}.rf{stroke:var(--acc);stroke-dasharray:326.7;stroke-dashoffset:326.7;animation:rg 1.4s .3s cubic-bezier(.2,.8,.2,1) forwards}@keyframes rg{to{stroke-dashoffset:var(--d)}}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:800 2rem Cinzel,serif}
+.rv{list-style:none;padding:0;margin:0;text-align:left;display:grid;gap:8px}.rv li{padding:10px 12px;border:1px solid var(--line);border-radius:10px}.rv span{display:block;color:var(--mute);font-size:.88rem}
+.acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.cf{position:fixed;top:-20px;left:var(--x);width:8px;height:14px;background:hsl(var(--c) 80% 55%);animation:cf 2.4s var(--dl) ease-in forwards;z-index:9;pointer-events:none}@keyframes cf{to{transform:translateY(110vh) rotate(720deg)}}
+@media(max-width:520px){.mg{grid-template-columns:1fr 1.35fr}.card{padding:18px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}}
+</style></head><body>
+<button class="th" id="th" aria-label="Switch light or dark theme">◐</button>
+<main id="app"></main>
+<script>
+const D=[
+["f","Wicked king of Iolcus who stole the throne from his half brother Aeson and sent Jason after the fleece","Pelias"],
+["f","The centaur who raised baby Jason in safety","Chiron"],
+["f","The boy carried to Colchis through the sky by a winged ram with golden fleece, sent by Hermes","Phrixus"],
+["f","The sister who rode the ram with her brother, lost her hold, and fell into the sea; the Hellespont is named for her","Helle"],
+["f","King of Colchis who hung the fleece in a grove sacred to Ares and set three impossible tasks","Aeetes"],
+["f","Goddess of wisdom who helped build the Argo and set a speaking beam from the oak at Dodona in its prow","Athena"],
+["f","Argonaut whose lyre music was so beautiful that no one heard the Sirens","Orpheus"],
+["f","Blind prophet tormented by Harpies who told the Argonauts how to pass the Clashing Rocks","Phineus"],
+["f","Sorceress princess of Colchis who gave Jason a magic ointment and put the serpent to sleep","Medea"],
+["f","Colchian prince who led the pursuit fleet; he was killed and his body cast into the sea in pieces","Apsyrtus"],
+["f","Enchantress whose island was where the Argonauts were purified of the guilt of a murder","Circe"],
+["f","Bronze giant guarding Crete who crumbled into dust when the pin closing his single vein was pulled out","Talos"],
+["p","King of Argos who was told by the oracle at Delphi that his daughter’s son would kill him","Acrisius"],
+["p","Princess locked in an underground house of bronze so she would never have children","Danaë","danae"],
+["p","How Zeus entered the bronze house through the opening in its roof","Shower of golden rain","golden rain|shower|rain"],
+["p","Kind fisherman of Seriphos who found the floating chest in his nets and raised Perseus as his son","Dictys"],
+["p","King of Seriphos who demanded wedding gifts and expected Perseus to die on an impossible mission","Polydectes"],
+["p","Three ancient gray sisters who shared a single eye","Graiae","graiae|graeae|graiai"],
+["p","Winged footwear from the nymphs of the North that let Perseus fly through the air","Winged sandals","sandal"],
+["p","Gift from the nymphs that grows or shrinks to fit whatever is put inside; it carried the Gorgon’s head","Magic wallet","wallet"],
+["p","Polished bronze gift from Athena that let Perseus watch his enemy only by reflection","Shield","shield"],
+["p","The only mortal Gorgon, whose face turned anyone who looked at it to stone","Medusa"],
+["p","Winged horse that sprang from the neck of the slain Gorgon","Pegasus"],
+["p","Princess of Ethiopia chained to a rock by the sea as a sacrifice to a monster","Andromeda"],
+["h","Respected warrior and general whose form Zeus took to visit Alcmene","Amphitryon"],
+["h","King of Mycenae, Hercules’s cousin, who commanded the Twelve Labors","Eurystheus"],
+["h","Goddess who hated the baby Hercules and sent two great serpents into his nursery","Hera"],
+["h","Beast with skin no arrow could pierce; its pelt became Hercules’s cloak","Nemean Lion","nemean|lion"],
+["h","Many-headed serpent monster; Iolaus burned each neck so the heads could not grow back","Hydra of Lerna","hydra"],
+["h","Filthy cattle yards cleaned in a single day by turning two rivers toward them","Stables of King Augeas","augeas|stables"],
+["h","Monstrous iron-winged flock frightened into the air by a bronze rattle","Stymphalian Birds","stymphal|birds"],
+["h","Titan holding up the sky who was tricked into taking the burden back","Atlas"],
+["h","Three-headed dog guarding the gates of the dead, mastered without weapons","Cerberus"],
+["h","Centaur shot with a poisoned arrow who tricked a bride with a bottle of his blood","Nessus"],
+["h","Young man who lit the funeral pyre on Mount Oeta and received a bow and arrows","Philoctetes"],
+["h","Goddess of youth whom Hercules married after he became a god","Hebe"]
+,
+["f","King of Thessaly who sent away his first wife and married again","Athamas"],
+["f","Queen sent away by her husband; her two children were later saved by a golden ram","Nephele"],
+["f","The cruel new queen who wanted her stepson dead so her own son would inherit the throne","Ino"],
+["f","The disaster that followed when all the seed corn was dried and roasted before planting","Famine"],
+["f","Messenger god who sent a winged ram with golden fleece to save the children","Hermes"],
+["f","Narrow strait between Europe and Asia named in memory of a girl who fell into the sea","Hellespont"],
+["f","Land at the far end of the Black Sea where the ram’s rider landed safely","Colchis"],
+["f","King of the gods, to whom the golden ram was sacrificed","Zeus"],
+["f","Tree on which the fleece was hung in a sacred grove","Oak tree","oak"],
+["f","Sleepless guardian coiled around the tree that held the fleece","Great serpent","serpent|snake"],
+["f","God of war whose sacred grove held the Golden Fleece","Ares"],
+["f","Rightful king of Iolcus whose throne was stolen; he was forced to take his own life during the quest","Aeson"],
+["f","Hero who won the Golden Fleece and later died when a beam from his old ship fell on him","Jason"],
+["f","What Jason lost in a rushing river, fulfilling an oracle’s warning to the usurper","A single sandal","sandal"],
+["f","Where Jason carried a waiting old woman across the water","Flooded river","river"],
+["f","Builder after whom the finest ship ever seen was named","Argus"],
+["f","Young companion of the strongest of men, pulled into a spring by water nymphs","Hylas"],
+["f","Twin brothers who joined the expedition from all over Greece","Castor and Pollux","castor|pollux"],
+["f","Argonaut who was the father of the great warrior Achilles","Peleus"],
+["f","First island stop, where the women had once risen up and killed all the men","Lemnos"],
+["f","People who mistook the returning heroes for enemies after strong winds drove them back at night","Doliones"],
+["f","Kind king killed in the night battle and given a noble burial","Cyzicus"],
+["f","Winged creatures that swooped down and snatched a prophet’s food, leaving only filth","Harpies","harpy|harpies"],
+["f","Sons of the North Wind who chased the winged tormentors away forever","Zetes and Calais","zetes|calais"],
+["f","Bird sent ahead to test the passage; it lost only a few tail feathers","Dove"],
+["f","Two great cliffs that crashed together, then stood apart forever","Clashing Rocks","clashing|rocks"],
+["f","Creatures whose sweet songs made sailors forget everything and sail onto the rocks","Sirens","siren"],
+["f","Beasts with bronze feet and fiery breath that Jason had to yoke","Fire-breathing bulls","bull|fire breathing"],
+["f","What Jason sowed in a plowed field, from which armed men rose","Dragon’s teeth","teeth|dragon"],
+["f","What Jason threw into the midst of the earth-born warriors so they fought each other","A great stone","stone|rock"],
+["f","Deity whose arrow struck a sorceress’s heart so she fell in love","Eros"],
+["f","Goddess of love who joined Hera in arranging Medea’s feelings","Aphrodite"],
+["f","Gift that made Jason invulnerable to fire and weapons for one day","Magic ointment","ointment"],
+["f","City where the exiled couple went to live after leaving Iolcus","Corinth"],
+["f","Sun god, grandfather of the sorceress, who sent a chariot drawn by dragons","Helios"],
+["f","The finest ship ever seen, built with Athena’s help","The Argo","argo"],
+["f","Beautiful gift sent to the Corinthian bride that killed her in agony","Poisoned robe","robe"],
+["f","What was sprinkled on the serpent so its eyes closed","Sleeping potion","potion|sleeping"],
+["f","Island guarded by a bronze giant who would not let the ship land","Crete"],
+["f","Kingdom ruled by the usurper and the final destination of the voyage","Iolcus"],
+["f","City whose king’s daughter became the cruel second wife","Thebes"],
+["f","How the queen got the oracle’s messenger to demand a sacrifice","Bribed the messenger","bribe|messenger"],
+["f","What struck the hero down as he sat beneath the rotting old ship","A falling beam","beam"],
+["f","Trusting girls who cut their own father into pieces and put him in a cauldron","Daughters of Pelias","daughter"],
+["f","Animal cut up and boiled with herbs to prove a promise of renewed youth","Old ram","ram|lamb"],
+["f","What the heroes who sailed together called themselves","The Argonauts","argonaut"],
+["p","Place of the oracle where a king asked about having a son","Delphi"],
+["p","What the mother and baby were nailed inside before being cast into the sea","Wooden chest","chest"],
+["p","Son of Zeus who rashly promised to bring back a Gorgon’s head","Perseus"],
+["p","Island where the drifting chest was caught in a fisherman’s nets","Seriphos"],
+["p","What the wealthy people brought the king as wedding gifts","Horses","horse"],
+["p","Place where sacred oaks spoke the words of the gods and Perseus learned they would help him","Dodona"],
+["p","Sharp, unbreakable gift from a god, strong enough to cut through the Gorgon’s scales","Sword"],
+["p","Gift that once belonged to the god of the underworld and hid its wearer from sight","Helmet of invisibility","helmet|invisib"],
+["p","Givers of the winged sandals, the wallet, and the helmet","Nymphs of the North","north|nymph"],
+["p","The three monstrous sisters who woke in rage but could not see the thief","Gorgons","gorgon"],
+["p","Fate of anyone who looked on the Gorgon’s face","Turned to stone","stone|petrif"],
+["p","Giant who sprang from the Gorgon’s neck beside a winged horse","Chrysaor"],
+["p","Land where a young woman was chained to a rock by the sea","Ethiopia"],
+["p","Queen who boasted that she was more beautiful than the sea nymphs","Cassiopeia"],
+["p","Offended beauties who asked their god to punish a kingdom","Sea nymphs","sea nymph"],
+["p","Sea god who sent a great monster to destroy the land","Poseidon"],
+["p","Beast the oracle said must receive a princess; it was killed with a sword","Sea monster","monster|beast"],
+["p","City far to the north where the fleeing king hid and where games were held","Larissa"],
+["p","Object that slipped from Perseus’s hand and struck an old man in the crowd","Discus"],
+["p","What the gods made of Perseus and Andromeda when they died","Constellations","constellation|stars|star"],
+["p","What Perseus pulled from the wallet and held up in the king’s hall","Medusa’s head","head"],
+["p","City Perseus sailed to with his mother and wife to see his grandfather","Argos"],
+["p","Why the king dared not kill his daughter, even after the oracle’s grim answer","Anger of the gods","anger|wrath"],
+["p","What Perseus did with a neighboring ruler because he could not rule where his grandfather died","Exchanged kingdoms","exchang|swap|trade"],
+["p","What no one can escape, no matter how far they run","Destiny","destiny|fate|prophecy"],
+["h","Mortal mother of Hercules, wife of a respected general","Alcmene"],
+["h","Twin brother who cried out in fear while the baby grabbed the snakes","Iphicles"],
+["h","What the baby strangled with his bare hands in the nursery","Two serpents","serpent|snake"],
+["h","Meaning of the name meant to appease an angry goddess, though it never worked","Glory of Hera","glory"],
+["h","Instrument he used to strike his music teacher in a burst of anger","Lyre"],
+["h","Where the court sent him to tend cattle after the accidental death","The mountains","mountain"],
+["h","Two goddesses who offered him a choice between an easy life and a hard one","Pleasure and Virtue","pleasure|virtue"],
+["h","Terrible affliction that made him think his own family were enemies","Madness"],
+["h","His first wife, killed along with their three sons","Megara"],
+["h","God whose oracle sent him to serve his cousin to be purified","Apollo"],
+["h","Length of service he owed his cousin before his sins were forgiven","Twelve years","twelve|12"],
+["h","Reward promised at the end of the labors","Immortality","immortal"],
+["h","What he used to skin the first beast","The lion’s claws","claw"],
+["h","Nephew who burned the monster’s necks with a blazing torch","Iolaus"],
+["h","What he dipped his arrows in so every wound became fatal","Hydra’s blood","blood|poison"],
+["h","Third labor: creature chased into deep snow and trapped in a net","Wild boar of Erymanthus","boar|erymanth"],
+["h","Where the terrified king hid when he saw the fierce animal","Large bronze jar","jar"],
+["h","Fourth labor: deer with golden antlers and bronze hooves, chased for a year","Golden Hind of Artemis","hind|deer"],
+["h","Goddess who was angry about the captured deer but accepted that he followed orders","Artemis"],
+["h","Seventh labor: savage animal carried on his shoulders back to Greece","Bull of Crete","bull"],
+["h","What the freed bull eventually became","Monster of Marathon","marathon"],
+["h","Thracian king who fed his horses human flesh and was fed to them","Diomedes"],
+["h","Dear friend killed by the horses; a city was founded in his honor","Abderus"],
+["h","Queen of the Amazons who agreed to give up her treasure freely","Hippolyta"],
+["h","What Hera spread so the warrior women attacked the ship","False rumor","rumor|rumour|lie"],
+["h","Magic item the king wanted for his daughter","Magic girdle","girdle|belt"],
+["h","Giant with three bodies joined together who owned red cattle","Geryon"],
+["h","Guardian of the red cattle, along with a giant herdsman","Two-headed dog","dog|two headed"],
+["h","Weapon used to kill the three-bodied giant","Club"],
+["h","Eleventh labor: fruit from a tree guarded by nymphs and a dragon","Golden apples","apple"],
+["h","Earth goddess who gave a wedding-gift tree to Hera","Gaea","gaea|gaia"],
+["h","Creature with a hundred heads guarding the garden","Hundred-headed dragon","dragon"],
+["h","What he asked the Titan to let him make while holding the sky for a moment","A pad for his shoulders","pad|cushion"],
+["h","God of the dead who let him take the guardian dog if he used no weapons","Hades"],
+["h","Entrance to the Underworld where the last labor began","Taenarus","taenarus|taenarum"],
+["h","Princess he married who later sent a robe to him","Deianira"],
+["h","What the dying centaur gave her, lying that it would make her husband love her more","Bottle of blood","blood|bottle"],
+["h","Mountain where the great funeral pyre was built","Mount Oeta","oeta"],
+["h","Great pile of wood he lay down on while no one wanted to light it","Funeral pyre","pyre"],
+["h","Home of the gods where his immortal spirit was carried","Olympus"],
+["h","The flaw that flared up quickly even though he was kind and noble at heart","Fierce temper","temper|anger"],
+["h","Son of Zeus and a mortal mother, honored forever among the immortals","Hercules","hercules|heracles"],
+["h","City ruled by his cousin, who gave him impossible tasks","Mycenae"]
+],SN={f:"The Golden Fleece",p:"Perseus",h:"Hercules"},$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],app=$("#app");
+const nm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();
+const D2=D.map(([s,q,a,k])=>({s,q,a,k:(k||a).split("|").map(nm)}));
+const sh=a=>{a=[...a];for(let i=a.length;i>1;){const j=Math.random()*i--|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const lev=(a,b)=>{let p=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let c=[i];for(let j=1;j<=b.length;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]==b[j-1]?0:1));p=c}return p[b.length]};
+const ok=(it,v)=>{v=nm(v);return v.length>1&&it.k.some(x=>v.includes(x)||(x.length>5&&lev(v,x)<=(x.length>9?2:1)))};
+let S={scope:"all",mode:"all"},R;
+const miss=it=>R.miss.includes(it)||R.miss.push(it);
+const pool=()=>D2.filter(x=>S.scope=="all"||x.s==S.scope);
+
+function home(){
+const sc=[["all","Overall (all 3 stories)"],["f","The Golden Fleece"],["p","Perseus"],["h","Hercules"]],md=[["id","✎","Identification","Read the clue and type the name."],["mt","⇄","Matching type","Pair each term with its description."],["all","★","Overall mix","Identification first, then matching."]];
+app.innerHTML=`<div class="rise"><div class="key"></div></div>
+<h1 class="rise" style="--d:.1s">Myth Hero<span>Reviewer</span></h1>
+<p class="sub rise" style="--d:.25s">Drill the names, monsters, and gods from the Golden Fleece, Perseus, and Hercules. Every question comes straight from your PDF.</p>
+<div class="rise" style="--d:.4s"><h3>What do you want to review?</h3><div class="chips" id="sc">${sc.map(([k,l])=>`<button class="chip ${S.scope==k?"on":""}" data-k="${k}">${l}</button>`).join("")}</div>
+<h3>How do you want to practice?</h3><div class="modes" id="md">${md.map(([k,i,t,d])=>`<button class="mode ${S.mode==k?"on":""}" data-k="${k}"><i>${i}</i><b>${t}</b><span>${d}</span></button>`).join("")}</div>
+<button class="go" id="go">Begin the quest</button><p class="foot" id="cnt"></p></div>`;
+const cnt=()=>$("#cnt").textContent=`${pool().length} questions ready. Matching rounds use five terms at a time.`;cnt();
+const pick=(id,key)=>$$(id+" button").forEach(b=>b.onclick=()=>{S[key]=b.dataset.k;$$(id+" button").forEach(x=>x.classList.toggle("on",x==b));cnt()});
+pick("#sc","scope");pick("#md","mode");$("#go").onclick=start}
+
+const mk=p=>{const m=sh(p),r=[];for(let i=0;i<m.length;i+=5){let g=m.slice(i,i+5);if(g.length<5)g=g.concat(sh(m.filter(x=>!g.includes(x))).slice(0,5-g.length));r.push({t:"mt",its:g})}return r};
+function start(){
+const p=pool(),ids=sh(p).map(it=>({t:"id",it})),ms=mk(p);
+run(S.mode=="id"?ids:S.mode=="mt"?ms:[...ids,...ms])}
+function run(steps){R={steps,i:0,pts:0,miss:[],max:steps.reduce((a,s)=>a+(s.t=="id"?1:s.its.length),0)};step()}
+
+function step(){
+if(R.i>=R.steps.length)return end();
+const s=R.steps[R.i];
+app.innerHTML=`<div class="bar"><i style="width:${R.i/R.steps.length*100}%"></i></div><div class="top"><button class="ghost" id="hm">Exit</button><span>Question ${R.i+1} of ${R.steps.length}</span><b>${R.pts} pts</b></div><div id="st"></div>`;
+$("#hm").onclick=home;requestAnimationFrame(()=>$(".bar i").style.width=(R.i+1)/R.steps.length*100+"%");
+s.t=="id"?ident(s.it):match(s.its)}
+
+function ident(it){
+$("#st").innerHTML=`<div class="card in"><span class="tag">${SN[it.s]}</span><p class="q">${it.q}</p><div class="row"><input id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type your answer" aria-label="Your answer"><button class="go sm" id="ck">Check</button></div><div class="row2"><button class="ghost" id="hn">Hint</button><button class="ghost" id="rv">Show answer</button></div><div class="ht" id="ht"></div><div id="fb"></div></div>`;
+const inp=$("#ans"),ck=$("#ck");let done=0;
+const fin=g=>{done=1;g?R.pts++:miss(it);inp.readOnly=true;ck.textContent="Next";$("#fb").innerHTML=`<div class="fb ${g?"ok":"no"} in"><b>${g?"Correct!":"Not quite."}</b> ${g?"":"The answer is "}<strong>${it.a}</strong></div>`;$("#hn").hidden=$("#rv").hidden=true;$("#ht").hidden=true};
+ck.onclick=()=>{if(done){R.i++;step();return}if(!nm(inp.value)){inp.classList.remove("bad");void inp.offsetWidth;inp.classList.add("bad");return}fin(ok(it,inp.value))};
+inp.onkeydown=e=>{if(e.key=="Enter")ck.click()};
+$("#hn").onclick=()=>$("#ht").textContent=it.a.split("").map((c,i)=>c==" "?"\u00a0":i?"_":c).join(" ");
+$("#rv").onclick=()=>fin(0);inp.focus()}
+
+function match(its){
+let lo=its.map((_,i)=>i),ro=sh(lo),sel=null,left=its.length,k=0;const mi=new Set(),dn={};
+const shake=x=>{x.classList.remove("bad");void x.offsetWidth;x.classList.add("bad");setTimeout(()=>x.classList.remove("bad"),600)};
+$("#st").innerHTML=`<div class="card in"><div class="mtop"><div><span class="tag">Matching type</span><p class="q sm" style="margin:.4em 0 1em">Tap a term on the left, then the description that fits it. A \u2713 means you got it.</p></div><button class="chip" id="shf">\u21c4 Shuffle</button></div><div class="mg"><div class="col" id="lc"></div><div class="col" id="rc"></div></div><div id="fb" style="margin-top:16px"></div></div>`;
+const bt=(i,c,t)=>`<button class="mb${c}${dn[i]!=null?" m":""}" data-i="${i}"${dn[i]!=null?` style="--h:${dn[i]}"`:""}>${t}</button>`;
+const draw=()=>{
+$("#lc").innerHTML=lo.map(i=>bt(i,sel===i?" sel":"",its[i].a)).join("");
+$("#rc").innerHTML=ro.map(i=>bt(i," d",its[i].q)).join("");
+$$("#lc .mb").forEach(b=>b.onclick=()=>{sel=+b.dataset.i;$$("#lc .sel").forEach(x=>x.classList.remove("sel"));b.classList.add("sel")});
+$$("#rc .mb").forEach(b=>b.onclick=()=>{
+if(sel==null)return shake(b);
+const a=sel,i=+b.dataset.i,ab=$(`#lc [data-i="${a}"]`);
+if(a==i){sel=null;$("#fb").innerHTML="";dn[i]=[150,205,265,35,320][k++%5];if(!mi.has(i))R.pts++;draw();
+if(!--left){$("#fb").innerHTML=`<button class="go sm in" id="nx">${R.i+1<R.steps.length?"Next round":"See results"}</button>`;$("#nx").onclick=()=>{R.i++;step()}}}
+else{mi.add(a);miss(its[a]);shake(b);$("#fb").innerHTML=`<div class="fb no in">Not a match. Your term is still selected, so try another description.</div>`}})};
+$("#shf").onclick=()=>{lo=sh(lo);ro=sh(ro);sel=null;draw()};
+draw()}
+
+function end(){
+const p=R.pts/R.max,pc=Math.round(p*100),msg=pc>=90?"Heroic. The gods would place you among the stars.":pc>=70?"Well fought. A little more practice and you’ll be immortal.":pc>=50?"A solid start. Review what you missed and go again.":"Every legend starts somewhere. Study the review list and return.";
+app.innerHTML=`<div class="card res in"><span class="tag">Quest complete</span><div class="ring"><svg viewBox="0 0 120 120"><circle class="rb" cx="60" cy="60" r="52"/><circle class="rf" cx="60" cy="60" r="52" style="--d:${326.7*(1-p)}"/></svg><b>${pc}%</b></div><h2>${R.pts} of ${R.max} points</h2><p class="sub" style="margin:0 auto">${msg}</p>${R.miss.length?`<h3>Review these</h3><ul class="rv">${R.miss.map(x=>`<li><b>${x.a}</b><span>${x.q}</span></li>`).join("")}</ul>`:""}<div class="acts">${R.miss.length?`<button class="go sm" id="dm">Drill ${R.miss.length} missed</button>`:""}<button class="go sm" id="ag">Play again</button><button class="ghost" id="hm">Home</button></div></div>`;
+$("#hm").onclick=home;$("#ag").onclick=start;
+if($("#dm")){const ms=[...R.miss];$("#dm").onclick=()=>run(sh(ms).map(it=>({t:"id",it})))}
+if(pc>=70)for(let i=0;i<42;i++){const c=document.createElement("i");c.className="cf";c.style.cssText=`--x:${Math.random()*100}%;--c:${Math.random()*360|0};--dl:${Math.random()*.8}s`;document.body.append(c);setTimeout(()=>c.remove(),3500)}}
+
+$("#th").onclick=()=>{const d=document.documentElement,dark=d.dataset.theme?d.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;d.dataset.theme=dark?"light":"dark"};
+home();
+</script></body></html>
